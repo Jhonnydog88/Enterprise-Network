@@ -171,9 +171,17 @@ SW1(config)# vtp mode server
 SW1(config)# vtp domain Kostas
 ```
 
+![VTP Status SW1](./Images/SW1_show_vtp_status.png)
+
+### The VLANs that will propagate
+
+![Show vlan brief SW1](./Images/SW1_show_vlan_brief.png)
+
 (no need to configured vtp on other devices manually since it automatically spreads to the rest)
 
-## DHCP Configurations 
+---
+
+## DHCP and DNS Configurations on the DHCP-DNS server
 ```shell
 DHCP-DNS(config)# ip dhcp pool POOL_VLAN10
 DHCP-DNS(dhcp-config)# network 10.0.10.0 255.255.255.0
