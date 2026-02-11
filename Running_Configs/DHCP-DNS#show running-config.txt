@@ -1,0 +1,141 @@
+DHCP-DNS#show running-config
+Building configuration...
+
+Current configuration : 1754 bytes
+!
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname DHCP-DNS
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+memory-size iomem 5
+no ip icmp rate-limit unreachable
+ip cef
+!
+!
+no ip dhcp use vrf connected
+ip dhcp excluded-address 10.0.10.1
+ip dhcp excluded-address 10.0.20.1
+ip dhcp excluded-address 10.0.30.1
+ip dhcp excluded-address 10.0.40.1
+!
+ip dhcp pool POOL_VLAN10
+   network 10.0.10.0 255.255.255.0
+   default-router 10.0.10.1
+   dns-server 10.0.100.10
+!
+ip dhcp pool POOL_VLAN20
+   network 10.0.20.0 255.255.255.0
+   default-router 10.0.20.1
+   dns-server 10.0.100.10
+!
+ip dhcp pool POOL_VLAN30
+   network 10.0.30.0 255.255.255.0
+   default-router 10.0.30.1
+   dns-server 10.0.100.10
+!
+ip dhcp pool POOL_VLAN40
+   network 10.0.40.0 255.255.255.0
+   default-router 10.0.40.1
+   dns-server 10.0.100.10
+!
+!
+ip host PC1 10.0.10.4
+ip host PC2 10.0.10.5
+ip host PC3 10.0.20.4
+ip host PC4 10.0.20.5
+ip host PC5 10.0.30.5
+ip host PC6 10.0.30.4
+ip host PC7 10.0.40.4
+ip host PC8 10.0.40.5
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+archive
+ log config
+  hidekeys
+!
+!
+!
+!
+ip tcp synwait-time 5
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address 10.0.100.10 255.255.255.0
+ speed auto
+ full-duplex
+!
+interface FastEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+ip forward-protocol nd
+ip route 0.0.0.0 0.0.0.0 10.0.100.1
+!
+!
+no ip http server
+no ip http secure-server
+!
+no cdp log mismatch duplex
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ login
+!
+!
+end
