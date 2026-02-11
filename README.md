@@ -209,3 +209,19 @@ DHCP-DNS(config)# ip host PC6 10.0.30.4
 DHCP-DNS(config)# ip host PC7 10.0.40.4
 DHCP-DNS(config)# ip host PC8 10.0.40.5
 ```
+
+# Images Used
+
+- ***If you want to download and use this lab you will need to the following Images!***
+
+- For the **Switches and Multilayer Switches**: *vios_l2-adventerprisek9-m.SSA.high_iron_20180619.qcow2*
+- For **R1** and **ISP-1**: *c7200-adventerprisek9-mz.124-24.T5.image*
+- For the **DHCP-DNS** server: *c3725-adventerprisek9-mz.124-15.T14.image*
+- For the **PCs**: *TinyCore-current.iso*
+
+---
+# Final Note
+
+**Thank you for reviewing this project.**
+- You are welcome to use, adapt, or extend this project for educational or lab purposes.
+- For questions, suggestions, or improvements, feel free to message me on Discord (@Konstantinoz).
